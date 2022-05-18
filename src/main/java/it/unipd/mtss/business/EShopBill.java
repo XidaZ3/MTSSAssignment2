@@ -58,11 +58,35 @@ public class EShopBill implements Bill{
         return total;
     }
 
+    public double checkSameAmountOfMousesAndKeyboardsDiscount(List<EItem> itemsOrdered, double total){  //requisito 4
+        int counterMouse = 0, counterKeyboard = 0;
+        double cheapestMouse = Double.POSITIVE_INFINITY, cheapestKeyboard = Double.POSITIVE_INFINITY;
+        for(EItem item : itemsOrdered){
+            if(item.getType() == itemType.Mouse){
+                counterMouse++;
+                if(item.getPrice() < cheapestMouse){
+                    cheapestMouse = item.getPrice();
+                }
+            }   
+            else if(item.getType() == itemType.Keyboard){
+                counterKeyboard++;
+                if(item.getPrice() < cheapestKeyboard){
+                    cheapestKeyboard = item.getPrice();
+                }
+            }                            
+        }
+        if(counterMouse == counterKeyboard && counterMouse != 0){                               
+            total -= Math.min(cheapestMouse, cheapestKeyboard);
+        }
+        return total;
+    }
+
     public double getOrderPrice(List<EItem> itemsOrdered, User user) throws BillException{
 
         double total = getRawTotal(itemsOrdered);                                    //R1
         total = checkMoreThanFiveProcessorsDiscount(itemsOrdered, total);            //R2
         total = checkMoreThanTenMousesDiscount(itemsOrdered, total);                 //R3
+        total = checkSameAmountOfMousesAndKeyboardsDiscount(itemsOrdered, total);    //R4
         return total;
     }
 }

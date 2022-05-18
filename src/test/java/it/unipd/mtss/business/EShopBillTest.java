@@ -18,6 +18,7 @@ import it.unipd.mtss.model.itemType;
 
 public class EShopBillTest {
     
+    //////////////////////////////////UNIT///////////////////////////////////////////
     @Test  
     public void getRawTotalTest(){
         List<EItem> lista = new ArrayList<EItem>(){{
@@ -72,5 +73,27 @@ public class EShopBillTest {
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    
+    @Test
+    public void checkSameAmountOfMousesAndKeyboardsDiscountTest(){
+        //interpretazione di meno caro: tra mouse e tastiere
+
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "medio", 17.50));
+            add(new EItem(itemType.Mouse, "gigante", 30.00));
+            add(new EItem(itemType.Processor, "i3", 4.50));
+            add(new EItem(itemType.Processor, "i4", 9.50));
+            add(new EItem(itemType.Motherboard, "nuova", 50.00));
+            add(new EItem(itemType.Keyboard, "con le lucine", 100.50));
+            add(new EItem(itemType.Keyboard, "senza le lucine", 10.50));
+            add(new EItem(itemType.Keyboard, "meccanica", 60.00));
+        }};
+        assertEquals(
+            282.50, 
+            new EShopBill()
+                .checkSameAmountOfMousesAndKeyboardsDiscount(lista, 293.00), 0.01);
     }
 }

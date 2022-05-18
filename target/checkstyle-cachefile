@@ -1,12 +1,12 @@
-#Thu May 19 00:53:48 CEST 2022
-configuration*?=436A1D20F75C4E915E6B2E02F7E28AB63AF44264
-module-resource*?\:file\:/C\:/Users/Xida/Documents/GitHub/MTSSAssignment2/LICENSE.txt=47A11A8A4C72FFDD8035CC34499B676644921B3E
-C\:\\Users\\Xida\\Documents\\GitHub\\MTSSAssignment2\\src\\main\\java\\it\\unipd\\mtss\\business\\Bill.java=1652913463840
-C\:\\Users\\Xida\\Documents\\GitHub\\MTSSAssignment2\\src\\main\\java\\it\\unipd\\mtss\\model\\UserImpl.java=1652913463844
-C\:\\Users\\Xida\\Documents\\GitHub\\MTSSAssignment2\\src\\main\\java\\it\\unipd\\mtss\\App.java=1652913463839
-C\:\\Users\\Xida\\Documents\\GitHub\\MTSSAssignment2\\src\\main\\java\\it\\unipd\\mtss\\model\\User.java=1652913463844
-C\:\\Users\\Xida\\Documents\\GitHub\\MTSSAssignment2\\src\\main\\java\\it\\unipd\\mtss\\business\\EShopBill.java=1652914380192
-C\:\\Users\\Xida\\Documents\\GitHub\\MTSSAssignment2\\src\\main\\java\\it\\unipd\\mtss\\model\\EItem.java=1652913463843
-C\:\\Users\\Xida\\Documents\\GitHub\\MTSSAssignment2\\src\\main\\java\\it\\unipd\\mtss\\model\\itemType.java=1652913463845
-C\:\\Users\\Xida\\Documents\\GitHub\\MTSSAssignment2\\src\\main\\java\\it\\unipd\\mtss\\model\\MenuItem.java=1652913463843
-C\:\\Users\\Xida\\Documents\\GitHub\\MTSSAssignment2\\src\\main\\java\\it\\unipd\\mtss\\business\\exception\\BillException.java=1652913463842
+#Thu May 19 01:01:36 CEST 2022
+C\:\\Users\\danil\\Desktop\\e-shop-manager\\src\\main\\java\\it\\unipd\\mtss\\model\\EItem.java=1652913635118
+configuration*?=142A398A8AB9295E12AE4DAE1124D5925581FF0F
+module-resource*?\:file\:/C\:/Users/danil/Desktop/e-shop-manager/LICENSE.txt=47A11A8A4C72FFDD8035CC34499B676644921B3E
+C\:\\Users\\danil\\Desktop\\e-shop-manager\\src\\main\\java\\it\\unipd\\mtss\\model\\MenuItem.java=1652913635118
+C\:\\Users\\danil\\Desktop\\e-shop-manager\\src\\main\\java\\it\\unipd\\mtss\\App.java=1652913635115
+C\:\\Users\\danil\\Desktop\\e-shop-manager\\src\\main\\java\\it\\unipd\\mtss\\business\\exception\\BillException.java=1652913635117
+C\:\\Users\\danil\\Desktop\\e-shop-manager\\src\\main\\java\\it\\unipd\\mtss\\model\\User.java=1652913635119
+C\:\\Users\\danil\\Desktop\\e-shop-manager\\src\\main\\java\\it\\unipd\\mtss\\business\\Bill.java=1652913635116
+C\:\\Users\\danil\\Desktop\\e-shop-manager\\src\\main\\java\\it\\unipd\\mtss\\business\\EShopBill.java=1652914762762
+C\:\\Users\\danil\\Desktop\\e-shop-manager\\src\\main\\java\\it\\unipd\\mtss\\model\\itemType.java=1652913635121
+C\:\\Users\\danil\\Desktop\\e-shop-manager\\src\\main\\java\\it\\unipd\\mtss\\model\\UserImpl.java=1652913635119
