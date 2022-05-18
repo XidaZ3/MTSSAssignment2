@@ -10,6 +10,8 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+/e-shop-manager/target
+
 # Package Files #
 *.jar
 *.war
