@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2022</copyright>
     <item>
-      <title>File: 1,
+      <title>File: 9,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -47,6 +47,118 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://www.example.com/checkstyle.html#it.unipd.mtss.App.java">it/unipd/mtss/App.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.example.com/checkstyle.html#it.unipd.mtss.business.exception.BillException.java">it/unipd/mtss/business/exception/BillException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.example.com/checkstyle.html#it.unipd.mtss.model.itemType.java">it/unipd/mtss/model/itemType.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.example.com/checkstyle.html#it.unipd.mtss.model.MenuItem.java">it/unipd/mtss/model/MenuItem.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.example.com/checkstyle.html#it.unipd.mtss.model.User.java">it/unipd/mtss/model/User.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.example.com/checkstyle.html#it.unipd.mtss.model.EItem.java">it/unipd/mtss/model/EItem.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.example.com/checkstyle.html#it.unipd.mtss.business.Bill.java">it/unipd/mtss/business/Bill.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.example.com/checkstyle.html#it.unipd.mtss.business.EShopBill.java">it/unipd/mtss/business/EShopBill.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.example.com/checkstyle.html#it.unipd.mtss.model.UserImpl.java">it/unipd/mtss/model/UserImpl.java</a>
                 </td>
                 <td>
                   0

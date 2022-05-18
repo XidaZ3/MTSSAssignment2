@@ -3,21 +3,11 @@
 // DANILO STOJKOVIC 1222399
 ////////////////////////////////////////////////////////////////////
 
-package it.unipd.mtss;
+package it.unipd.mtss.model;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-
-
-
-        System.out.println( "Hello World!" );
-    }
-
-    
+public enum itemType {
+    Processor,
+    Motherboard,
+    Mouse, 
+    Keyboard    
 }
