@@ -7,6 +7,7 @@ package it.unipd.mtss.business;
 
 import it.unipd.mtss.business.exception.BillException;
 import it.unipd.mtss.model.EItem;
+import it.unipd.mtss.model.itemType;
 import it.unipd.mtss.model.User;
 import it.unipd.mtss.business.EShopBill;
 
@@ -22,11 +23,29 @@ public class EShopBill implements Bill{
         }
         return total;
     }
+    
+    public double checkMoreThanFiveProcessorsDiscount(List<EItem> itemsOrdered, double total){      //requisito 2
+        int counter = 0;
+        double cheapest = Double.POSITIVE_INFINITY;
+        for(EItem item : itemsOrdered){
+            if(item.getType() == itemType.Processor){
+                counter++;
+                if(item.getPrice() < cheapest){
+                    cheapest = item.getPrice();
+                }
+            }                             
+        }
+        if(counter >= 5){                               
+            total -= cheapest / 2;
+        }
+        return total;
+    }
 
 
     public double getOrderPrice(List<EItem> itemsOrdered, User user) throws BillException{
 
         double total = getRawTotal(itemsOrdered);                                    //R1
+        total = checkMoreThanFiveProcessorsDiscount(itemsOrdered, total);            //R2
         return total;
     }
 

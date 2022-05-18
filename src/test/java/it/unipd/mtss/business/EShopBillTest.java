@@ -34,4 +34,21 @@ public class EShopBillTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void checkMoreThanFiveProcessorsDiscountTest(){
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Processor, "i7", 10.50));
+            add(new EItem(itemType.Processor, "i5", 7.50));
+            add(new EItem(itemType.Processor, "i2", 2.50));
+            add(new EItem(itemType.Processor, "i3", 4.50));
+            add(new EItem(itemType.Processor, "i4", 9.50));
+            add(new EItem(itemType.Processor, "i4", 9.50));
+            add(new EItem(itemType.Motherboard, "nuova", 50.00));
+            add(new EItem(itemType.Keyboard, "con le lucine", 100.50));
+        }};
+        assertEquals(
+            193.25, 
+            new EShopBill().checkMoreThanFiveProcessorsDiscount(lista, 194.50), 0.01);
+    }
 }
