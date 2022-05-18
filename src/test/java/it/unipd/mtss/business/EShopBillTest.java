@@ -51,4 +51,26 @@ public class EShopBillTest {
             193.25, 
             new EShopBill().checkMoreThanFiveProcessorsDiscount(lista, 194.50), 0.01);
     }
+
+    @Test  
+    public void checkMoreThanTenMousesDiscountTest(){
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "economico", 1.50));
+            add(new EItem(itemType.Mouse, "base", 5.50));
+            add(new EItem(itemType.Mouse, "okay", 10.50));
+            add(new EItem(itemType.Mouse, "buono", 15.50));
+            add(new EItem(itemType.Mouse, "buonetto", 20.50));
+            add(new EItem(itemType.Mouse, "molto buono", 25.50));
+            add(new EItem(itemType.Mouse, "buonissimo", 30.50));
+        }};
+        try{
+            assertEquals(new EShopBill().checkMoreThanTenMousesDiscount(lista, 111), 110.50, 0.1);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

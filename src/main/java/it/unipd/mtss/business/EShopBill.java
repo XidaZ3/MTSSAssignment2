@@ -41,14 +41,29 @@ public class EShopBill implements Bill{
         return total;
     }
 
+    public double checkMoreThanTenMousesDiscount(List<EItem> itemsOrdered, double total){           //requisito 3
+        int counter = 0;
+        double cheapest = Double.POSITIVE_INFINITY;
+        for(EItem item : itemsOrdered){
+            if(item.getType() == itemType.Mouse){
+                counter++;
+                if(item.getPrice() < cheapest){
+                    cheapest = item.getPrice();
+                }
+            }                             
+        }
+        if(counter >= 10){                               
+            total -= cheapest;
+        }
+        return total;
+    }
 
     public double getOrderPrice(List<EItem> itemsOrdered, User user) throws BillException{
 
         double total = getRawTotal(itemsOrdered);                                    //R1
         total = checkMoreThanFiveProcessorsDiscount(itemsOrdered, total);            //R2
+        total = checkMoreThanTenMousesDiscount(itemsOrdered, total);                 //R3
         return total;
     }
-
-
 }
 
