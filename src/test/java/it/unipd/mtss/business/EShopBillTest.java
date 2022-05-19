@@ -113,4 +113,52 @@ public class EShopBillTest {
             e.printStackTrace();
         }
     }
+
+    
+    @Test
+    public void checkIfMoreThanThirtyItemsOrderedTest(){
+        
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+        }};
+        try{
+            assertEquals(
+                325.50, 
+                new EShopBill()
+                    .checkIfMoreThanThirtyItemsOrdered(lista, 325.50), 0.01);
+        }
+        catch(BillException e){
+            assertEquals(e.id, 0);
+        }
+    }
 }

@@ -87,6 +87,13 @@ public class EShopBill implements Bill{
         }
         return total;
     }
+    
+    public double checkIfMoreThanThirtyItemsOrdered(List<EItem> itemsOrdered, double total) throws BillException{   //requisito 6
+        if(itemsOrdered.size() > 30){                                           
+            throw new BillException(0, "troppi ordini");
+        }
+        return total;
+    }
 
     public double getOrderPrice(List<EItem> itemsOrdered, User user) throws BillException{
 
@@ -95,6 +102,7 @@ public class EShopBill implements Bill{
         total = checkMoreThanTenMousesDiscount(itemsOrdered, total);                 //R3
         total = checkSameAmountOfMousesAndKeyboardsDiscount(itemsOrdered, total);    //R4
         total = checkMoreThanAThousandSpentDiscount(total);                          //R5
+        total = checkIfMoreThanThirtyItemsOrdered(itemsOrdered, total);              //R6
         return total;
     }
 }

@@ -1,8 +1,0 @@
-it\unipd\mtss\App.class
-it\unipd\mtss\business\exception\BillException.class
-it\unipd\mtss\model\MenuItem.class
-it\unipd\mtss\model\itemType.class
-it\unipd\mtss\business\Bill.class
-it\unipd\mtss\model\UserImpl.class
-it\unipd\mtss\model\EItem.class
-it\unipd\mtss\model\User.class
