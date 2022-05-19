@@ -164,4 +164,43 @@ public class EShopBillTest {
             e.printStackTrace();
         }
     }
+
+    
+    @Test
+    public void makeGiftsWhenBoughtBetween18and19hour()
+
+    {
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "economico", 1.50));
+            add(new EItem(itemType.Mouse, "base", 5.50));
+            add(new EItem(itemType.Mouse, "okay", 10.50));
+            add(new EItem(itemType.Mouse, "buono", 15.50));
+            add(new EItem(itemType.Mouse, "buonetto", 20.50));
+            add(new EItem(itemType.Mouse, "molto buono", 25.50));
+            add(new EItem(itemType.Mouse, "buonissimo", 30.50));
+        }};
+
+        List<EShopBill> ordineDanilo = new ArrayList<EShopBill>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2022, 11, 1, 18, 30, 59);
+        ordineDanilo.add(new EShopBill(lista, new UserImpl(0, "Danilo", 21), calendar.getTime()));
+        List<EShopBill> ordiniPEGI12 = new LinkedList<>();
+        ordiniPEGI12.add(ordineDanilo.get(0));
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(1, "Danilo", 10), calendar.getTime()));
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(2, "Danilo", 10), calendar.getTime()));
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(3, "Danilo", 10), calendar.getTime()));
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(4, "Danilo", 10), calendar.getTime()));
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(5, "Danilo", 10), calendar.getTime()));
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(6, "Danilo", 10), calendar.getTime()));
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(7, "Danilo", 10), calendar.getTime()));
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(8, "Danilo", 10), calendar.getTime()));
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(9, "Danilo", 10), calendar.getTime()));
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(10, "Danilo", 10), calendar.getTime()));
+        EShopBill.makeFreeOrder(ordiniPEGI12);
+        assertEquals(ordineDanilo.get(0), ordiniPEGI12.get(0));
+    }
+
 }
