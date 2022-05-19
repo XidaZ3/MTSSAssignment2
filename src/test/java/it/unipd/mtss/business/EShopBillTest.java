@@ -99,13 +99,6 @@ public class EShopBillTest {
 
     @Test  
     public void checkMoreThanAThousandSpentDiscountTest(){
-        List<EItem> lista = new ArrayList<EItem>(){{
-            add(new EItem(itemType.Mouse, "di diamanti", 300.50));
-            add(new EItem(itemType.Keyboard, "di diamanti", 500.50));
-            add(new EItem(itemType.Keyboard, "di diamanti", 500.50));
-            add(new EItem(itemType.Motherboard, "indistruttibile", 300.00));
-            add(new EItem(itemType.Processor, "alieno", 700.00));
-        }};
         try{
             assertEquals(new EShopBill().checkMoreThanAThousandSpentDiscount(2301.5), 2071.35, 0.1);
         }
@@ -159,6 +152,16 @@ public class EShopBillTest {
         }
         catch(BillException e){
             assertEquals(e.id, 0);
+        }
+    }
+
+    @Test  
+    public void checkIfTotalIsLessThanTenTest(){
+        try{
+            assertEquals(new EShopBill().checkIfTotalIsLessThanTen(7), 9.00, 0.1);
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 }

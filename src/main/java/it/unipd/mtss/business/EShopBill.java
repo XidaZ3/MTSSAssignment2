@@ -95,6 +95,13 @@ public class EShopBill implements Bill{
         return total;
     }
 
+    public double checkIfTotalIsLessThanTen(double total){           //requisito 7
+        if(total < 10){
+            return total + 2;
+        }
+        return total;
+    }
+
     public double getOrderPrice(List<EItem> itemsOrdered, User user) throws BillException{
 
         double total = getRawTotal(itemsOrdered);                                    //R1
@@ -103,6 +110,7 @@ public class EShopBill implements Bill{
         total = checkSameAmountOfMousesAndKeyboardsDiscount(itemsOrdered, total);    //R4
         total = checkMoreThanAThousandSpentDiscount(total);                          //R5
         total = checkIfMoreThanThirtyItemsOrdered(itemsOrdered, total);              //R6
+        total = checkIfTotalIsLessThanTen(total);                                    //R7
         return total;
     }
 }
