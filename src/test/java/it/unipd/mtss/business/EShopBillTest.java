@@ -8,6 +8,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import it.unipd.mtss.business.exception.BillException;
@@ -18,7 +20,13 @@ import it.unipd.mtss.model.itemType;
 
 public class EShopBillTest {
     
+    UserImpl xida;
     //////////////////////////////////UNIT///////////////////////////////////////////
+    @Before
+    public void prepareUserImpl(){
+        xida= new UserImpl(0, "xida", 21);
+    }
+
     @Test  
     public void getRawTotalTest(){
         List<EItem> lista = new ArrayList<EItem>(){{
@@ -109,6 +117,16 @@ public class EShopBillTest {
 
     
     @Test
+    public void checkMoreThanAThousandSpentDiscountNegativeTest(){
+        try{
+            assertEquals(new EShopBill().checkMoreThanAThousandSpentDiscount(2), 2, 0.0);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    @Test
     public void checkIfMoreThanThirtyItemsOrderedTest(){
         
         List<EItem> lista = new ArrayList<EItem>(){{
@@ -155,10 +173,66 @@ public class EShopBillTest {
         }
     }
 
+    @Test
+    public void checkIfMoreThanThirtyItemsOrderedLessTest(){
+        
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+        }};
+        try{
+            assertEquals(
+                315.00, 
+                new EShopBill()
+                    .checkIfMoreThanThirtyItemsOrdered(lista, 315.00), 0.01);
+        }
+        catch(BillException e){
+            assertEquals(e.id, 0);
+        }
+    }
+
     @Test  
     public void checkIfTotalIsLessThanTenTest(){
         try{
             assertEquals(new EShopBill().checkIfTotalIsLessThanTen(7), 9.00, 0.1);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void checkIfTotalIsLessThanTenTestNegative(){
+        try{
+            assertEquals(new EShopBill().checkIfTotalIsLessThanTen(10.1), 10.1, 0.1);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -203,4 +277,54 @@ public class EShopBillTest {
         assertEquals(ordineDanilo.get(0), ordiniPEGI12.get(0));
     }
 
+    @Test
+    public void getOrderPriceWithNoDiscount(){
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "medio", 20.50));
+            add(new EItem(itemType.Mouse, "gigante", 100.50));
+            add(new EItem(itemType.Processor, "m2", 0.50));
+            add(new EItem(itemType.Keyboard, "meccanica", 20.00));
+            add(new EItem(itemType.Motherboard, "non so nomi di schede madri", 50.50));
+            add(new EItem(itemType.Motherboard, "basta non ne metto altre", 20.00));
+            add(new EItem(itemType.Mouse, "un altro mouse", 30.00));
+            add(new EItem(itemType.Keyboard, "solo numeri", 8.00));
+            add(new EItem(itemType.Processor, "piccolo folletto che fa i calcoli", 111.11));
+        }};
+        try{
+            assertEquals(371.61, new EShopBill(lista, xida, new Date()).getOrderPrice(lista, xida), 0.01);
+        }
+        catch(BillException e){
+            assertEquals(false, true);
+        }
+    }
+
+    @Test
+    public void getOrderPriceWithProcessorAndMouseDiscount(){
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "medio", 20.50));
+            add(new EItem(itemType.Mouse, "gigante", 100.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "medio", 20.50));
+            add(new EItem(itemType.Mouse, "gigante", 100.50));
+            add(new EItem(itemType.Mouse, "piccolo", 10.50));
+            add(new EItem(itemType.Mouse, "medio", 20.50));
+            add(new EItem(itemType.Mouse, "gigante", 100.50));
+            add(new EItem(itemType.Mouse, "gigantissimo", 200.00));
+            add(new EItem(itemType.Processor, "m2", 0.50));
+            add(new EItem(itemType.Keyboard, "meccanica", 20.00));
+            add(new EItem(itemType.Processor, "piccolo folletto che fa i calcoli", 111.11));
+            add(new EItem(itemType.Processor, "m1", 0.25));
+            add(new EItem(itemType.Processor, "i1", 10.00));
+            add(new EItem(itemType.Processor, "non so più", 5.00));
+            add(new EItem(itemType.Processor, "processore anonimo", 3.00));
+        }};
+        try{
+            assertEquals(733.735, new EShopBill(lista, xida, new Date()).getOrderPrice(lista, xida), 0.01);
+        }
+        catch(BillException e){
+            assertEquals(false, true);
+        }
+    }
 }
