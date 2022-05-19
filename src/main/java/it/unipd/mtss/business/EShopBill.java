@@ -81,12 +81,20 @@ public class EShopBill implements Bill{
         return total;
     }
 
+    public double checkMoreThanAThousandSpentDiscount(double total){           //requisito 5
+        if(total > 1000){
+            return total * 0.9;
+        }
+        return total;
+    }
+
     public double getOrderPrice(List<EItem> itemsOrdered, User user) throws BillException{
 
         double total = getRawTotal(itemsOrdered);                                    //R1
         total = checkMoreThanFiveProcessorsDiscount(itemsOrdered, total);            //R2
         total = checkMoreThanTenMousesDiscount(itemsOrdered, total);                 //R3
         total = checkSameAmountOfMousesAndKeyboardsDiscount(itemsOrdered, total);    //R4
+        total = checkMoreThanAThousandSpentDiscount(total);                          //R5
         return total;
     }
 }
