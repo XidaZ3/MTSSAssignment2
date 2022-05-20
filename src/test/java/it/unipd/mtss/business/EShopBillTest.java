@@ -61,6 +61,23 @@ public class EShopBillTest {
             new EShopBill().checkMoreThanFiveProcessorsDiscount(lista, 194.50), 0.01);
     }
 
+    
+
+    @Test
+    public void checkMoreThanFiveProcessorsDiscountNegativeTest(){
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Processor, "i7", 10.50));
+            add(new EItem(itemType.Processor, "i5", 7.50));
+            add(new EItem(itemType.Processor, "i2", 2.50));
+            add(new EItem(itemType.Processor, "i3", 4.50));
+            add(new EItem(itemType.Motherboard, "nuova", 50.00));
+            add(new EItem(itemType.Keyboard, "con le lucine", 100.50));
+        }};
+        assertEquals(
+            175.50, 
+            new EShopBill().checkMoreThanFiveProcessorsDiscount(lista, 175.50), 0.01);
+    }
+
     @Test  
     public void checkMoreThanTenMousesDiscountTest(){
         List<EItem> lista = new ArrayList<EItem>(){{
@@ -77,6 +94,27 @@ public class EShopBillTest {
         }};
         try{
             assertEquals(new EShopBill().checkMoreThanTenMousesDiscount(lista, 111), 110.50, 0.1);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    @Test  
+    public void checkMoreThanTenMousesDiscountNegativeTest(){
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "economico", 1.50));
+            add(new EItem(itemType.Mouse, "base", 5.50));
+            add(new EItem(itemType.Mouse, "okay", 10.50));
+            add(new EItem(itemType.Mouse, "buono", 15.50));
+            add(new EItem(itemType.Mouse, "buonetto", 20.50));
+            add(new EItem(itemType.Mouse, "molto buono", 25.50));
+        }};
+        try{
+            assertEquals(new EShopBill().checkMoreThanTenMousesDiscount(lista, 80.50), 80.50, 0.1);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -292,7 +330,7 @@ public class EShopBillTest {
             add(new EItem(itemType.Processor, "piccolo folletto che fa i calcoli", 111.11));
         }};
         try{
-            assertEquals(371.61, new EShopBill(lista, xida, new Date()).getOrderPrice(lista, xida), 0.01);
+            assertEquals(371.61, new EShopBill().getOrderPrice(lista, xida), 0.01);
         }
         catch(BillException e){
             assertEquals(false, true);
@@ -321,10 +359,31 @@ public class EShopBillTest {
             add(new EItem(itemType.Processor, "processore anonimo", 3.00));
         }};
         try{
-            assertEquals(733.735, new EShopBill(lista, xida, new Date()).getOrderPrice(lista, xida), 0.01);
+            assertEquals(733.735, new EShopBill().getOrderPrice(lista, xida), 0.01);
         }
         catch(BillException e){
             assertEquals(false, true);
+        }
+    }
+
+    @Test
+    public void getOrderPriceWithEmptyList(){
+        List<EItem> lista = new ArrayList<EItem>();
+        try{
+            assertEquals(0.0, new EShopBill().getOrderPrice(lista, xida), 0.01);
+        }
+        catch(BillException e){
+            assertEquals(false, true);
+        }
+    }
+
+    @Test
+    public void getOrderPriceWithNullList(){
+        try{
+            assertEquals(0.0, new EShopBill().getOrderPrice(null, xida), 0.01);
+        }
+        catch(BillException e){
+            assertEquals(e.id, 1);
         }
     }
 }

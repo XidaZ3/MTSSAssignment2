@@ -114,12 +114,11 @@ public class EShopBill implements Bill{
     }
 
     public double checkIfTotalIsLessThanTen(double total){           //requisito 7
-        if(total < 10){
+        if(total > 0 && total < 10){
             return total + 2;
         }
         return total;
     }
-
     
     public static void makeFreeOrder(List<EShopBill> bills) {              //requisito 8
 
@@ -150,15 +149,19 @@ public class EShopBill implements Bill{
     }
 
     public double getOrderPrice(List<EItem> itemsOrdered, User user) throws BillException{
-
-        double total = getRawTotal(itemsOrdered);                                    //R1
-        total = checkMoreThanFiveProcessorsDiscount(itemsOrdered, total);            //R2
-        total = checkMoreThanTenMousesDiscount(itemsOrdered, total);                 //R3
-        total = checkSameAmountOfMousesAndKeyboardsDiscount(itemsOrdered, total);    //R4
-        total = checkMoreThanAThousandSpentDiscount(total);                          //R5
-        total = checkIfMoreThanThirtyItemsOrdered(itemsOrdered, total);              //R6
-        total = checkIfTotalIsLessThanTen(total);                                    //R7
-        return total;
+        if(itemsOrdered != null){
+            double total = getRawTotal(itemsOrdered);                                    //R1
+            total = checkMoreThanFiveProcessorsDiscount(itemsOrdered, total);            //R2
+            total = checkMoreThanTenMousesDiscount(itemsOrdered, total);                 //R3
+            total = checkSameAmountOfMousesAndKeyboardsDiscount(itemsOrdered, total);    //R4
+            total = checkMoreThanAThousandSpentDiscount(total);                          //R5
+            total = checkIfMoreThanThirtyItemsOrdered(itemsOrdered, total);              //R6
+            total = checkIfTotalIsLessThanTen(total);                                    //R7    
+            return total;                                   
+        }           
+        else{
+            throw(new BillException(1, "Null list given"));
+        }                
     }
 }
 
