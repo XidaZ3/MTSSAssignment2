@@ -20,9 +20,9 @@ import java.util.Random;
 
 public class EShopBill implements Bill{
     
-    List<EItem> itemsOrdered;
-    User user;
-    Date date;
+    public List<EItem> itemsOrdered;
+    public User user;
+    public Date date;
 
     public EShopBill(){
         
@@ -34,9 +34,12 @@ public class EShopBill implements Bill{
         this.date = date;
     }
   
-    public double getRawTotal(List<EItem> itemsOrdered){     //requisito 1
+    public double getRawTotal(List<EItem> itemsOrdered) throws BillException{     //requisito 1
         double total = 0.0;
         for(EItem item : itemsOrdered){
+            if(item.getPrice()<0.0){
+                throw new BillException(2, "Impossible negative item price");
+            }
             total += item.getPrice();                               
         }
         return total;
