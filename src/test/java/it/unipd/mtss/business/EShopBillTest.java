@@ -8,6 +8,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +41,26 @@ public class EShopBillTest {
             assertEquals(new EShopBill().getRawTotal(lista), 166.5, 0.1);
         }
         catch(Exception e){
-            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    public void getRawTotalNegativePriceTest(){
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Keyboard, "nuovissima e bellissima", 60.50));
+            add(new EItem(itemType.Processor, "i5", 5.50));
+            add(new EItem(itemType.Motherboard, "nuova", 50.00));
+            add(new EItem(itemType.Motherboard, "nuova", 50.00));
+            add(new EItem(itemType.Motherboard, "difettosa", -5.00));
+            add(new EItem(itemType.Keyboard, "con le lucine", 100.50));
+        }};
+
+       try{
+            assertEquals(new EShopBill().getRawTotal(lista), 261.50, 0.1);
+        }
+        catch(BillException e){
+            assertEquals(2, e.id);
         }
     }
 
@@ -61,6 +81,23 @@ public class EShopBillTest {
             new EShopBill().checkMoreThanFiveProcessorsDiscount(lista, 194.50), 0.01);
     }
 
+    
+
+    @Test
+    public void checkMoreThanFiveProcessorsDiscountNegativeTest(){
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Processor, "i7", 10.50));
+            add(new EItem(itemType.Processor, "i5", 7.50));
+            add(new EItem(itemType.Processor, "i2", 2.50));
+            add(new EItem(itemType.Processor, "i3", 4.50));
+            add(new EItem(itemType.Motherboard, "nuova", 50.00));
+            add(new EItem(itemType.Keyboard, "con le lucine", 100.50));
+        }};
+        assertEquals(
+            175.50, 
+            new EShopBill().checkMoreThanFiveProcessorsDiscount(lista, 175.50), 0.01);
+    }
+
     @Test  
     public void checkMoreThanTenMousesDiscountTest(){
         List<EItem> lista = new ArrayList<EItem>(){{
@@ -77,6 +114,27 @@ public class EShopBillTest {
         }};
         try{
             assertEquals(new EShopBill().checkMoreThanTenMousesDiscount(lista, 111), 110.50, 0.1);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    @Test  
+    public void checkMoreThanTenMousesDiscountNegativeTest(){
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "economico", 1.50));
+            add(new EItem(itemType.Mouse, "base", 5.50));
+            add(new EItem(itemType.Mouse, "okay", 10.50));
+            add(new EItem(itemType.Mouse, "buono", 15.50));
+            add(new EItem(itemType.Mouse, "buonetto", 20.50));
+            add(new EItem(itemType.Mouse, "molto buono", 25.50));
+        }};
+        try{
+            assertEquals(new EShopBill().checkMoreThanTenMousesDiscount(lista, 80.50), 80.50, 0.1);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -239,10 +297,8 @@ public class EShopBillTest {
         }
     }
 
-    
     @Test
     public void makeGiftsWhenBoughtBetween18and19hour()
-
     {
         List<EItem> lista = new ArrayList<EItem>(){{
             add(new EItem(itemType.Mouse, "rotto", 0.50));
@@ -275,6 +331,67 @@ public class EShopBillTest {
         ordiniPEGI12.add(new EShopBill(lista, new UserImpl(10, "Danilo", 10), calendar.getTime()));
         EShopBill.makeFreeOrder(ordiniPEGI12);
         assertEquals(ordineDanilo.get(0), ordiniPEGI12.get(0));
+        assertEquals(1, ordiniPEGI12.size());
+    }
+
+    @Test
+    public void makeGiftsWhenBoughtBetween18and19hourLowOrder()
+    {
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "economico", 1.50));
+            add(new EItem(itemType.Mouse, "base", 5.50));
+            add(new EItem(itemType.Mouse, "okay", 10.50));
+            add(new EItem(itemType.Mouse, "buono", 15.50));
+            add(new EItem(itemType.Mouse, "buonetto", 20.50));
+            add(new EItem(itemType.Mouse, "molto buono", 25.50));
+            add(new EItem(itemType.Mouse, "buonissimo", 30.50));
+        }};
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2022, 11, 1, 18, 30, 59);
+        List<EShopBill> ordiniPEGI12 = new ArrayList<>();
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(1, "Danilo", 10), calendar.getTime()));
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(2, "Danilo", 10), calendar.getTime()));
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(3, "Danilo", 10), calendar.getTime()));
+        EShopBill.makeFreeOrder(ordiniPEGI12);
+        assertEquals(new ArrayList<EShopBill>(),ordiniPEGI12);
+    }
+
+    @Test
+    public void makeGiftsWhenBoughtBetween18and19hourCheckUnderAgeAndCorrectTime()
+    {
+        List<EItem> lista = new ArrayList<EItem>(){{
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+            add(new EItem(itemType.Mouse, "rotto", 0.50));
+        }};
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2022, 11, 1, 18, 30, 59);
+        List<EShopBill> ordiniPEGI12 = new ArrayList<>();
+
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(1, "Danilo", 12), calendar.getTime()));
+
+        calendar.set(2022, 11, 1, 19, 30, 59);
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(2, "Danilo", 19), calendar.getTime()));
+
+        calendar.set(2022, 11, 1, 17, 30, 59);
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(3, "Danilo", 10), calendar.getTime()));
+
+        calendar.set(2022, 11, 1, 18, 30, 59);
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(4, "Danilo", 22), calendar.getTime()));
+
+        calendar.set(2022, 11, 1, 18, 3, 59);
+        ordiniPEGI12.add(new EShopBill(lista, new UserImpl(5, "Danilo", 9), calendar.getTime()));
+
+        EShopBill.makeFreeOrder(ordiniPEGI12);
+
+        for (EShopBill eShopBill : ordiniPEGI12) {
+            assertTrue("Maggiorenni o Fascia tempo fuori 18-19",eShopBill.user.getAge() >= 18 || eShopBill.date.getHours() < 18 ||  eShopBill.date.getHours() > 19);
+        }
+        assertEquals(3,ordiniPEGI12.size());
     }
 
     @Test
@@ -292,7 +409,7 @@ public class EShopBillTest {
             add(new EItem(itemType.Processor, "piccolo folletto che fa i calcoli", 111.11));
         }};
         try{
-            assertEquals(371.61, new EShopBill(lista, xida, new Date()).getOrderPrice(lista, xida), 0.01);
+            assertEquals(371.61, new EShopBill().getOrderPrice(lista, xida), 0.01);
         }
         catch(BillException e){
             assertEquals(false, true);
@@ -321,10 +438,31 @@ public class EShopBillTest {
             add(new EItem(itemType.Processor, "processore anonimo", 3.00));
         }};
         try{
-            assertEquals(733.735, new EShopBill(lista, xida, new Date()).getOrderPrice(lista, xida), 0.01);
+            assertEquals(733.735, new EShopBill().getOrderPrice(lista, xida), 0.01);
         }
         catch(BillException e){
             assertEquals(false, true);
+        }
+    }
+
+    @Test
+    public void getOrderPriceWithEmptyList(){
+        List<EItem> lista = new ArrayList<EItem>();
+        try{
+            assertEquals(0.0, new EShopBill().getOrderPrice(lista, xida), 0.01);
+        }
+        catch(BillException e){
+            assertEquals(false, true);
+        }
+    }
+
+    @Test
+    public void getOrderPriceWithNullList(){
+        try{
+            assertEquals(0.0, new EShopBill().getOrderPrice(null, xida), 0.01);
+        }
+        catch(BillException e){
+            assertEquals(e.id, 1);
         }
     }
 }
